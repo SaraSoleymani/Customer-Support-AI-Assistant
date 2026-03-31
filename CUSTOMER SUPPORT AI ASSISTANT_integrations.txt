@@ -1,0 +1,27 @@
+CUSTOMER SUPPORT AI ASSISTANT - INTEGRATIONS
+
+NATIVE INTEGRATIONS (available on Professional and Enterprise plans)
+- Salesforce: two-way sync of contacts, deals, and activities
+- HubSpot: two-way sync of contacts and company records
+- Gmail: email tracking, send from CRM, auto-logging
+- Outlook: email tracking, send from CRM, auto-logging
+- Google Calendar: meeting sync and activity logging
+- Slack: deal notifications and pipeline alerts
+
+INTEGRATIONS AVAILABLE VIA ZAPIER (Enterprise plan only)
+- Zapier connection enables integration with 5,000+ third-party apps
+- Examples: Mailchimp, Typeform, LinkedIn Lead Gen Forms, Stripe
+- Custom workflows built and maintained by the customer
+
+CUSTOM API INTEGRATIONS (Enterprise plan only)
+- Full REST API with documentation available at docs.pulsecrm.com
+- Webhook support for real-time event triggers
+- Custom integrations built and maintained by the customer or their development team
+
+INTEGRATIONS NOT CURRENTLY AVAILABLE
+- LinkedIn Sales Navigator: no native integration available. Can be connected via Zapier on Enterprise plan.
+- Gong: no native integration available. Can be connected via Zapier on Enterprise plan.
+- Outreach: no native integration available. Can be connected via Zapier on Enterprise plan.
+- Marketo: no native integration available. Can be connected via custom API on Enterprise plan.
+
+NOTE: Pulse CRM does not confirm integrations not listed in this document. If a specific integration is not listed, assume it is not natively available.

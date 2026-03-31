@@ -1,0 +1,39 @@
+CUSTOMER SUPPORT AI ASSISTANT - FEATURES BY PLAN TIER
+
+STARTER PLAN
+- Pipeline management: visual drag-and-drop pipeline with up to 3 custom stages
+- Contact management: up to 1,000 contacts
+- Basic email integration: connect one Gmail or Outlook account
+- Activity logging: manual logging of calls, emails, and meetings
+- Reporting: pre-built pipeline and activity reports
+- User seats: up to 2 users
+- Support: email support only
+
+PROFESSIONAL PLAN
+- Pipeline management: unlimited stages, multiple pipelines
+- Contact management: up to 25,000 contacts
+- Automated follow-up sequences: set triggers based on deal stage or inactivity
+- Deal health scoring: AI-powered scoring based on activity signals
+- Integrations: native Salesforce and HubSpot integrations
+- Reporting: custom reports and dashboards
+- User seats: up to 10 users
+- Support: email and chat support
+- API access: not included
+- Custom reporting: not included
+
+ENTERPRISE PLAN
+- Everything in Professional
+- Contact management: unlimited contacts
+- API access: full REST API with webhook support
+- Custom reporting: build and export custom data models
+- Advanced integrations: Zapier, custom API integrations, and all Professional integrations
+- SSO and SAML authentication
+- Dedicated customer success manager
+- SLA-backed uptime guarantee
+- User seats: unlimited
+- Support: priority phone, email, and chat support
+
+PRICING
+Specific pricing is not available through this support channel.
+Contact the Pulse CRM sales team for current pricing information.
+All plans are billed annually. Monthly billing is available at a premium on Starter and Professional plans only.
