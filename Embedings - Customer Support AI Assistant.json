@@ -1,0 +1,333 @@
+{
+  "name": "Embedings - Customer Support AI Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1hkwgSeQWxLTTHFrKbB3mHSShcQu_h_TT",
+          "mode": "list",
+          "cachedResultName": "Customer Support AI Assistant",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1hkwgSeQWxLTTHFrKbB3mHSShcQu_h_TT"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2800,
+        944
+      ],
+      "id": "9dcf21da-db6a-4361-8c19-7bf47e142c96",
+      "name": "Google Drive Trigger",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Fvq569PHDMrG27ea",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -2496,
+        944
+      ],
+      "id": "aac7e80a-fda8-40e6-83f8-05a574493a79",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Fvq569PHDMrG27ea",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "customer-success-ai-assistant",
+          "mode": "list",
+          "cachedResultName": "customer-success-ai-assistant"
+        },
+        "options": {
+          "pineconeNamespace": "support-docs"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -2032,
+        944
+      ],
+      "id": "08e85689-b715-46e2-bf23-3357520d2263",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "BPmCLvupwbm4XAE0",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "textSplittingMode": "custom",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        -2064,
+        1152
+      ],
+      "id": "3d877114-0b38-4341-bdf2-365f246f38f3",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkSize": 200,
+        "chunkOverlap": 30,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        -2064,
+        1296
+      ],
+      "id": "9ef0c834-c32e-45d1-ad9e-c96938e2c399",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "content": "## Google Drive Trigger \n\nWatches the /sales-knowledge-base folder in Google Drive.\nFires automatically when a new file is added or an existing file is updated.\nSupported file types: .docx, .pdf",
+        "height": 240,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2896,
+        688
+      ],
+      "typeVersion": 1,
+      "id": "7b66c259-ab36-4f74-b27f-cdf6572511f8",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Google Drive Download \n\nDownloads the file binary from Google Drive using the file ID\npassed from the trigger node.\nRequired before the Pinecone node can process the document.",
+        "height": 240,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2592,
+        688
+      ],
+      "typeVersion": 1,
+      "id": "ae7e0fdb-8d93-4dd6-b900-8f9148342911",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Pinecone Vector Store\n\nIngestion node receives the document binary, chunks it,\nembeds each chunk, and inserts the vectors into Pinecone.\nIndex: sales-knowledge-base | Namespace: gtm-docs\nOperation: Insert Documents",
+        "height": 240,
+        "width": 288,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2272,
+        688
+      ],
+      "typeVersion": 1,
+      "id": "61df3186-f690-435e-8b18-48272f45daf3",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Default Data Loader\n\nParses the raw binary file and loads its content\nfor the text splitter to process.\nData Type: Binary\nNote: Extract from File node is not needed — this node\nhandles .docx parsing directly.",
+        "height": 240,
+        "width": 288,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1792,
+        1024
+      ],
+      "typeVersion": 1,
+      "id": "f487dc2a-ddf5-4a88-b7e2-d2119dfa77bf",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Recursive Character Text Splitter\n\nSplits document text into overlapping chunks before embedding.\nChunk Size: 512 tokens | Chunk Overlap: 50 tokens\nOverlap preserves context across chunk boundaries\nso retrieval doesn't miss split sentences.",
+        "height": 240,
+        "width": 368,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1968,
+        1296
+      ],
+      "typeVersion": 1,
+      "id": "dac8848a-d181-4655-a176-0299f7bc03f8",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## OpenAI Embeddings\n\nConverts each text chunk into a 1536-dimension vector\nusing text-embedding-3-small.\nMust match the dimension setting of the Pinecone index.",
+        "height": 240,
+        "width": 288,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2576,
+        1120
+      ],
+      "typeVersion": 1,
+      "id": "c8dd2e02-7f4b-4cd4-af2e-17e3cefcb37b",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "destinationKey": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -2288,
+        944
+      ],
+      "id": "4d751c96-53ac-4acf-a562-880123108e3f",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 512
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -2240,
+        1152
+      ],
+      "id": "8354c2ee-d219-4ede-9a5c-df090403d98e",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "VwrhD5kIKkZROPql",
+          "name": "OpenAi account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5b85780c-948a-4275-94f2-f52e8b47068c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d2926e605d262bee5909c7941095358b0b2fbb483629d7cc273c8d86e3c55860"
+  },
+  "id": "mdQqAdmR5aOTxMoF",
+  "tags": []
+}
